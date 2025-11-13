@@ -43,7 +43,7 @@ class TransactionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("Git push test commit!") // <-- ADD THIS LINE
+        println("Successful push to GitHUb!") // <-- ADD THIS LINE
         setupAdapter()
         setupToggleButtons()
         observeTransactions()
