@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.jcbwltrs.budgettracker.ui.dashboard.DashboardFragment"
+        android:label="Dashboard" />
+
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.jcbwltrs.budgettracker.ui.transactions.TransactionsFragment"
+        android:label="Transactions" />
+
+    <fragment
+        android:id="@+id/incomeListFragment"
+        android:name="com.jcbwltrs.budgettracker.ui.income.IncomeListFragment"
+        android:label="Income History">
+        <!-- Any navigation actions if needed -->
+    </fragment>
+
+</navigation>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pocket</string>
+    <string name="completed_categories">Completed (%1$d)</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+</resources>
