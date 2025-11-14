@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.MaterialToolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/surface_dark" android:elevation="0dp" tools:background="@color/surface_dark">
+    android:background="@color/background_dark"
+    android:elevation="0dp"
+    tools:background="@color/background_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +20,8 @@
             android:id="@+id/tv_month_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary" android:textSize="18sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
             android:drawableEnd="@drawable/ic_arrow_drop_down"
             android:drawablePadding="8dp"
             android:padding="8dp"
@@ -41,5 +44,4 @@
             android:padding="12dp"/>
 
     </LinearLayout>
-
 </com.google.android.material.appbar.MaterialToolbar>
