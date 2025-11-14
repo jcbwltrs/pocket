@@ -5,26 +5,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/green_500"
-    android:minWidth="300dp">
+    android:background="@drawable/bg_dialog" android:minWidth="300dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Add Income"
-        android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textColor="?android:attr/textColorPrimary" android:textSize="18sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxBackgroundColor="#33FFFFFF"
-        app:hintTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
-        android:textColorHint="#99FFFFFF"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -33,17 +27,12 @@
             android:layout_height="wrap_content"
             android:hint="Amount"
             android:inputType="numberDecimal"
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="?android:attr/textColorPrimary" /> </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxBackgroundColor="#33FFFFFF"
-        app:hintTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
-        android:textColorHint="#99FFFFFF"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -51,17 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Source"
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="?android:attr/textColorPrimary" /> </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxBackgroundColor="#33FFFFFF"
-        app:hintTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
-        android:textColorHint="#99FFFFFF"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,17 +53,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="?android:attr/textColorPrimary" /> </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxBackgroundColor="#33FFFFFF"
-        app:hintTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
-        android:textColorHint="#99FFFFFF"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,8 +68,7 @@
             android:hint="Date"
             android:focusable="false"
             android:clickable="true"
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="?android:attr/textColorPrimary" /> </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,14 +83,10 @@
             android:layout_marginEnd="8dp"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:text="Cancel"
-            android:textColor="@color/white" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/green_500" />
-    </LinearLayout>
+            android:textColor="?android:attr/textColorSecondary" /> <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:backgroundTint="?attr/colorPrimary" android:textColor="?attr/colorOnPrimary" /> </LinearLayout>
 </LinearLayout>

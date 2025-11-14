@@ -5,13 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_500">
+    tools:background="@color/background_dark">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="0dp">
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,134 +17,50 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Central Balance Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:minHeight="?attr/actionBarSize">
+
+                <TextView
+                    android:id="@+id/tv_month_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    tools:text="April"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/btn_settings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_settings"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="?android:attr/textColorSecondary"
+                    android:contentDescription="Settings"
+                    android:padding="12dp"/>
+            </LinearLayout>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#33FFFFFF"
-                app:cardElevation="0dp"
-                app:strokeColor="#33FFFFFF"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <!-- Header Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Current Balance"
-                            android:textColor="@color/white"
-                            android:alpha="0.7"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/tv_current_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="01/12/2025"/>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_current_balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="24dp"
-                        tools:text="$2,500.00"/>
-
-                    <!-- Budget Progress Section -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Monthly Budget"
-                        android:textColor="@color/white"
-                        android:alpha="0.7"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_overall_budget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="8dp"
-                        tools:text="$1,500 of $3,400"/>
-                    <Button
-                        android:id="@+id/btn_add_income"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/green_700"
-                        android:textColor="@android:color/white"
-                        android:text="Add Income"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-                </LinearLayout>
+                android:layout_marginBottom="24dp">
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Active Categories Grid -->
-
-            <!-- Completed Categories Section -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_active_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/item_category" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_add_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_add"
-                app:fabSize="normal" />
-
-            <LinearLayout
-                android:id="@+id/layout_completed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btn_toggle_completed"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:textColor="@color/white"
-                    tools:text="Completed (3)" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_completed_categories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="3" />
-
-
-            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
