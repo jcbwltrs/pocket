@@ -17,6 +17,7 @@ import com.jcbwltrs.budgettracker.ui.dialog.AddIncomeDialog
 import com.jcbwltrs.budgettracker.ui.dialog.AddTransactionDialog
 import com.jcbwltrs.budgettracker.ui.dialog.ConfigureBalanceDialog
 import com.jcbwltrs.budgettracker.ui.dialog.EditCategoryDialog
+import com.jcbwltrs.budgettracker.ui.dialog.MonthSelectorDialog
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
@@ -52,6 +53,8 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // This ID is still valid, as it's in fragment_dashboard.xml
         val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
         binding.tvCurrentDate.text = dateFormat.format(Date())
 
@@ -63,17 +66,15 @@ class DashboardFragment : Fragment() {
 
         setupAdapters()
         setupObservers()
-        setupClickListeners()
+        setupClickListeners() // We'll add the new listeners here
 
-        binding.fabAddCategory.setOnClickListener {
-            showCreateCategoryDialog()
-        }
+        // REMOVED: binding.fabAddCategory.setOnClickListener
     }
 
     private fun showCreateCategoryDialog() {
-        val currentMonth = viewModel.selectedMonth.value.toString() // <-- ADD THIS
+        val currentMonth = viewModel.selectedMonth.value.toString()
         EditCategoryDialog(
-            category = Category(name = "", monthYear = currentMonth), // <-- FIXED
+            category = Category(name = "", monthYear = currentMonth),
             currentBudget = 0.0,
             onCategoryEdited = { name, budget ->
                 viewModel.createCategory(name, budget)
@@ -85,24 +86,34 @@ class DashboardFragment : Fragment() {
 
     private fun setupAdapters() {
         activeAdapter = CategoryAdapter(
-            onCategoryClick = { categoryData -> 
+            onCategoryClick = { categoryData ->
                 showAddTransactionDialog(categoryData.first)
             },
             onCategoryLongClick = { categoryData ->
                 showEditCategoryDialog(categoryData)
                 true  // Return true to indicate the long click was handled
+            },
+            // FIXED: Add the new listener
+            onAddCategoryClick = {
+                showCreateCategoryDialog()
             },
             calculateDailyBudget = { category, budget -> viewModel.calculateDailyBudget(category, budget) },
             calculateBusRides = viewModel::calculateBusRides
         )
 
         completedAdapter = CategoryAdapter(
-            onCategoryClick = { categoryData -> 
+            onCategoryClick = { categoryData ->
                 showAddTransactionDialog(categoryData.first)
             },
             onCategoryLongClick = { categoryData ->
                 showEditCategoryDialog(categoryData)
                 true  // Return true to indicate the long click was handled
+            },
+            // FIXED: Add the new listener
+            onAddCategoryClick = {
+                // You probably don't want an "Add" button on the *completed* list
+                // but we'll wire it up just in case.
+                showCreateCategoryDialog()
             },
             calculateDailyBudget = { category, budget -> viewModel.calculateDailyBudget(category, budget) },
             calculateBusRides = viewModel::calculateBusRides
@@ -132,6 +143,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        // This is all your existing logic, which is still correct
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.currentBalance.collectLatest { balance ->
                 val format = NumberFormat.getCurrencyInstance(Locale.US)
@@ -161,9 +173,18 @@ class DashboardFragment : Fragment() {
                 updateCompletedButton(categories.size)
             }
         }
+
+        // --- ADDED: This logic was moved from MainActivity ---
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedMonthViewModel.selectedMonth.collectLatest { monthYear ->
+                // The binding is direct, not via topBar
+                binding.tvMonthSelector.text = monthYear.toDisplayString()
+            }
+        }
     }
 
     private fun setupClickListeners() {
+        // This is your existing logic, which is still correct
         binding.btnToggleCompleted.setOnClickListener {
             isCompletedExpanded = !isCompletedExpanded
             binding.rvCompletedCategories.visibility =
@@ -178,6 +199,15 @@ class DashboardFragment : Fragment() {
         binding.btnAddIncome.setOnClickListener {
             showAddIncomeDialog()
         }
+
+        // --- ADDED: This logic was moved from MainActivity ---
+        binding.tvMonthSelector.setOnClickListener {
+            showMonthSelector()
+        }
+
+        binding.btnSettings.setOnClickListener {
+            showConfigureBalanceDialog()
+        }
     }
 
     private fun showAddIncomeDialog() {
@@ -186,11 +216,30 @@ class DashboardFragment : Fragment() {
         }.show(parentFragmentManager, "AddIncomeDialog")
     }
 
+    // --- ADDED: This function was moved from MainActivity ---
     private fun showConfigureBalanceDialog() {
         ConfigureBalanceDialog().show(
             parentFragmentManager,
             ConfigureBalanceDialog.TAG
         )
+    }
+
+    // --- ADDED: This function was moved from MainActivity ---
+    private fun showMonthSelector() {
+        MonthSelectorDialog(
+            currentSelection = sharedMonthViewModel.selectedMonth.value,
+            archivedMonths = sharedMonthViewModel.archivedMonths.value,
+            onMonthSelected = { selected ->
+                println("Month selected in dialog: ${selected.toDisplayString()}")
+                sharedMonthViewModel.selectMonth(selected)
+            },
+            onMonthArchived = { monthYear ->
+                sharedMonthViewModel.archiveMonth(monthYear)
+            },
+            onMonthUnarchived = { monthYear ->
+                sharedMonthViewModel.unarchiveMonth(monthYear)
+            }
+        ).show(parentFragmentManager, MonthSelectorDialog.TAG)
     }
 
     private fun updateCompletedButton(completedCount: Int) {
