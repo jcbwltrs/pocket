@@ -4,7 +4,21 @@
     <color name="accent_yellow">#FDE047</color>
     <color name="accent_blue">#38BDF8</color> <color name="accent_green">#22C55E</color>
     <color name="accent_red">#EF4444</color>
-    <color name="accent_orange">#F97316</color> <color name="background_dark">#121212</color> <color name="surface_dark">#1E1E1E</color> <color name="text_primary">#FFFFFFFF</color> <color name="text_secondary">#E0E0E0</color> <color name="text_tertiary">#BDBDBD</color> <color name="black">#FF000000</color>
+    <color name="accent_orange">#F97316</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_dark">#1E1E1E</color>
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#E0E0E0</color>
+    <color name="text_tertiary">#BDBDBD</color>
+    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="accent_pink_selection">#33EC4899</color>
+    <color name="pastel_blue">#a4adfc</color>
+    <color name="pastel_yellow">#ffe58e</color>
+    <color name="pastel_pink">#f9a8d3</color>
+    <color name="pastel_purple">#e0bfff</color>
+    <color name="pastel_green">#ECFDF5</color>
+    <color name="pastel_red">#FEE2E2</color>
+    <color name="pastel_orange">#feb276</color>
+    <color name="text_dark_primary">#1F2937</color>
 </resources>

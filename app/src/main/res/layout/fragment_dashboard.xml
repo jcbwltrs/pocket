@@ -59,74 +59,61 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/pastel_blue"> <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Current Balance"
-                            android:textColor="?android:attr/textColorSecondary"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/tv_current_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textAlignment="textEnd"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="01/12/2025"/>
-                    </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp">
 
                     <TextView
-                        android:id="@+id/tv_current_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:textSize="32sp"
+                        android:text="Current Balance"
+                        android:textColor="@color/text_dark_primary" android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_current_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/text_dark_primary" android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="24dp"
-                        tools:text="$2,500.00"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Monthly Budget"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_overall_budget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="8dp"
-                        tools:text="$1,500 of $3,400"/>
-
-                    <Button
-                        android:id="@+id/btn_add_income"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Add Income"
-                        style="@style/Widget.MaterialComponents.Button" />
-
+                        tools:text="01/12/2025"/>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_current_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_dark_primary" android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp"
+                    tools:text="$2,500.00"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly Budget"
+                    android:textColor="@color/text_dark_primary" android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_overall_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_dark_primary" android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
+                    tools:text="$1,500 of $3,400"/>
+
+
+            </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -137,6 +124,17 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
                 tools:listitem="@layout/item_category" />
+
+            <Button
+                android:id="@+id/btn_add_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="Add Income"
+                android:textColor="@color/text_dark_primary"
+                app:backgroundTint="@color/pastel_blue"
+                style="@style/Widget.MaterialComponents.Button" />
 
             <LinearLayout
                 android:id="@+id/layout_completed"
@@ -159,7 +157,6 @@
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="3" />
-
             </LinearLayout>
 
         </LinearLayout>

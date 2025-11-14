@@ -36,6 +36,9 @@ class EditCategoryDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         setupInitialValues()
         setupListeners()
 

@@ -23,6 +23,11 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
 
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
+        <item name="dialogTheme">@style/App.Dialog.Theme</item>
+    </style>
+
+    <style name="App.Dialog.Theme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">

@@ -44,6 +44,8 @@ class AddTransactionDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         // Set up initial date
         binding.etDate.setText(dateFormat.format(calendar.time))
 

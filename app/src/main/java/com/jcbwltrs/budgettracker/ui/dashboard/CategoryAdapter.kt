@@ -14,30 +14,41 @@ import java.text.NumberFormat
 import java.util.Locale
 import kotlin.math.absoluteValue
 
-// 1. Add the new click listener for the "Add" button to the constructor
 class CategoryAdapter(
     private val onCategoryClick: (Triple<Category, Double, Double>) -> Unit,
     private val onCategoryLongClick: (Triple<Category, Double, Double>) -> Boolean,
-    private val onAddCategoryClick: () -> Unit, // <-- NEW
+    private val onAddCategoryClick: () -> Unit,
     private val calculateDailyBudget: (Category, Double) -> Double,
     private val calculateBusRides: (Double) -> Int
-) : ListAdapter<Triple<Category, Double, Double>, RecyclerView.ViewHolder>(CategoryDiffCallback()) { // 2. Changed to generic RecyclerView.ViewHolder
+) : ListAdapter<Triple<Category, Double, Double>, RecyclerView.ViewHolder>(CategoryDiffCallback()) {
 
-    // 3. Define constants for our two view types
     companion object {
         private const val VIEW_TYPE_CATEGORY = 0
         private const val VIEW_TYPE_ADD = 1
     }
 
-    // 4. Create a simple ViewHolder for the "Add" card
+    // NEW: Create a list of our "normal" pastel colors
+    private val pastelColors = listOf(
+        R.color.pastel_orange,
+        R.color.pastel_orange,
+        R.color.pastel_orange,
+        R.color.pastel_pink,
+        R.color.pastel_pink,
+        R.color.pastel_pink,
+        R.color.pastel_yellow,
+        R.color.pastel_yellow,
+        R.color.pastel_yellow,
+        R.color.pastel_purple,
+        R.color.pastel_purple,
+        R.color.pastel_purple,
+    )
+
     inner class AddCategoryViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    // 5. Override getItemCount to add 1 for our "Add" button
     override fun getItemCount(): Int {
-        return currentList.size + 1 // List size + 1 for the "Add" button
+        return currentList.size + 1
     }
 
-    // 6. Override getItemViewType to tell the adapter which layout to use
     override fun getItemViewType(position: Int): Int {
         return if (position == currentList.size) {
             VIEW_TYPE_ADD
@@ -46,40 +57,35 @@ class CategoryAdapter(
         }
     }
 
-    // 7. Update onCreateViewHolder to inflate the correct layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == VIEW_TYPE_CATEGORY) {
-            // This is the same as your old code
             val binding = ItemCategoryBinding.inflate(inflater, parent, false)
             CategoryViewHolder(binding)
         } else {
-            // This inflates our new item_add_category.xml layout
             val view = inflater.inflate(R.layout.item_add_category, parent, false)
             AddCategoryViewHolder(view)
         }
     }
 
-    // 8. Update onBindViewHolder to bind the correct data or click listener
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder.itemViewType == VIEW_TYPE_CATEGORY) {
-            // This is a normal category, bind it as before
             val categoryData = getItem(position)
-            (holder as CategoryViewHolder).bind(categoryData)
+            // Pass the position to bind, so we can cycle colors
+            (holder as CategoryViewHolder).bind(categoryData, position)
         } else {
-            // This is our "Add" button, just set its click listener
             (holder as AddCategoryViewHolder).itemView.setOnClickListener {
                 onAddCategoryClick()
             }
         }
     }
 
-    // This is your original ViewHolder
     inner class CategoryViewHolder(
         private val binding: ItemCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(categoryData: Triple<Category, Double, Double>) {
+        // Add position to the bind function parameters
+        fun bind(categoryData: Triple<Category, Double, Double>, position: Int) {
             val (category, spent, budget) = categoryData
             val remaining = budget - spent
             val isOverspent = remaining < 0
@@ -89,25 +95,25 @@ class CategoryAdapter(
             with(binding.root) {
                 setOnClickListener { onCategoryClick(categoryData) }
                 setOnLongClickListener {
-                    // Return true to indicate we've handled the long click and prevent the normal click
                     onCategoryLongClick(categoryData)
                 }
             }
             binding.tvCategoryName.text = category.name
-
-            // Set amount with +/- sign
             binding.tvAmount.text = when {
                 isOverspent -> "-$" + currencyFormat.format(remaining.absoluteValue).substring(1)
                 else -> "+$" + currencyFormat.format(remaining.absoluteValue).substring(1)
             }
 
-            // Update the appearance based on status
-            // NOTE: We will update these drawables in the next step
-            binding.root.background = when {
-                isOverspent -> itemView.context.getDrawable(R.drawable.bg_category_overspent)
-                isExact -> itemView.context.getDrawable(R.drawable.bg_category_completed)
-                else -> itemView.context.getDrawable(R.drawable.bg_category_normal)
+            // --- THIS IS THE NEW LOGIC ---
+            // Replace the old background drawable logic with this:
+            val colorRes = when {
+                isOverspent -> R.color.accent_red
+                isExact -> R.color.pastel_purple // Our "completed" state
+                else -> pastelColors[position % pastelColors.size] // Cycle through pastels
             }
+            binding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, colorRes))
+            // --- END OF NEW LOGIC ---
+
 
             // Handle progress bar visibility
             binding.progressCategory.visibility = when {
@@ -145,14 +151,12 @@ class CategoryAdapter(
                     isOverspent -> {
                         visibility = View.VISIBLE
                         setImageResource(R.drawable.ic_close)
-                        // UPDATED: Use new theme accent color
-                        setColorFilter(ContextCompat.getColor(context, R.color.accent_red))
+                        setColorFilter(ContextCompat.getColor(context, R.color.text_dark_primary)) // Use dark text
                     }
                     isExact -> {
                         visibility = View.VISIBLE
                         setImageResource(R.drawable.ic_check)
-                        // UPDATED: Use new theme accent color
-                        setColorFilter(ContextCompat.getColor(context, R.color.accent_green))
+                        setColorFilter(ContextCompat.getColor(context, R.color.text_dark_primary)) // Use dark text
                     }
                     else -> {
                         visibility = View.GONE
