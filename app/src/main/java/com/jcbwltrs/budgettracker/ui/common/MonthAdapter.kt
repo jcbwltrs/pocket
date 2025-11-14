@@ -84,7 +84,7 @@ class MonthAdapter(
 
                 // Highlight the current selection
                 if (monthYear == currentSelection) {
-                    root.setBackgroundColor(ContextCompat.getColor(root.context, R.color.white_20))
+                    root.setBackgroundColor(ContextCompat.getColor(root.context, R.color.accent_pink_selection))
                 } else {
                     root.background = ContextCompat.getDrawable(
                         root.context,
